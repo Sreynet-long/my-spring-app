@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 /gradlew text eol=lf
 *.bat text eol=crlf
 *.jar binary
+=======
+/mvnw text eol=lf
+*.cmd text eol=crlf
+>>>>>>> 0cd05e1 (first commit)

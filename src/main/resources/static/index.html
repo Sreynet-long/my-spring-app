@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ប្រព័ន្ធគ្រប់គ្រងនិស្សិត</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1><i class="fas fa-graduation-cap"></i> ប្រព័ន្ធគ្រប់គ្រងនិស្សិត</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#" onclick="showSection('list')" class="active">
+        <i class="fas fa-list"></i> បញ្ជីនិស្សិត</a></li>
+      <li><a href="#" onclick="showSection('add')">
+        <i class="fas fa-plus"></i> បន្ថែមនិស្សិត</a></li>
+      <li><a href="#" onclick="showSection('search')">
+        <i class="fas fa-search"></i> ស្វែងរក</a></li>
+      <li><a href="#" onclick="showSection('stats')">
+        <i class="fas fa-chart-bar"></i> ស្ថិតិ</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- បញ្ជីនិស្សិត -->
+    <section id="list-section" class="section active">
+      <h2>បញ្ជីនិស្សិត</h2>
+      <div class="table-container">
+        <table id="studentsTable">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>ឈ្មោះ</th>
+            <th>អ៊ីមែល</th>
+            <th>លេខទូរសព្ទ</th>
+            <th>ជំនាញ</th>
+            <th>សកម្មភាព</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!-- Data will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination">
+        <!-- Pagination will be loaded here -->
+      </div>
+    </section>
+
+    <!-- បន្ថែមនិស្សិត -->
+    <section id="add-section" class="section">
+      <h2>បន្ថែមនិស្សិតថ្មី</h2>
+      <form id="studentForm">
+        <div class="form-group">
+          <label for="name">ឈ្មោះ:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">អ៊ីមែល:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber">លេខទូរសព្ទ:</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber">
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate">កាលបរិច្ឆេទកំណើត:</label>
+          <input type="date" id="birthDate" name="birthDate">
+        </div>
+
+        <div class="form-group">
+          <label for="major">ជំនាញ:</label>
+          <select id="major" name="major" required>
+            <option value="">ជ្រើសរើសជំនាញ</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Software Engineering">Software Engineering</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Cybersecurity">Cybersecurity</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="address">អាសយដ្ឋាន:</label>
+          <textarea id="address" name="address" rows="3"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit"><i class="fas fa-save"></i> រក្សាទុក</button>
+          <button type="reset"><i class="fas fa-undo"></i> កំណត់ឡើងវិញ</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ស្វែងរក -->
+    <section id="search-section" class="section">
+      <h2>ស្វែងរកនិស្សិត</h2>
+      <form id="searchForm">
+        <div class="search-grid">
+          <div class="form-group">
+            <label for="searchName">ឈ្មោះ:</label>
+            <input type="text" id="searchName" placeholder="វាយបញ្ចូលឈ្មោះ">
+          </div>
+
+          <div class="form-group">
+            <label for="searchMajor">ជំនាញ:</label>
+            <input type="text" id="searchMajor" placeholder="វាយបញ្ចូលជំនាញ">
+          </div>
+
+          <div class="form-group">
+            <label for="searchEmail">អ៊ីមែល:</label>
+            <input type="text" id="searchEmail" placeholder="វាយបញ្ចូលអ៊ីមែល">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit"><i class="fas fa-search"></i> ស្វែងរក</button>
+            <button type="button" onclick="clearSearch()"><i class="fas fa-times"></i> សម្អាត</button>
+          </div>
+        </div>
+      </form>
+
+      <div id="searchResults">
+        <!-- Search results will be displayed here -->
+      </div>
+    </section>
+
+    <!-- ស្ថិតិ -->
+    <section id="stats-section" class="section">
+      <h2>ស្ថិតិ</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-content">
+            <h3 id="totalStudents">0</h3>
+            <p>និស្សិតសរុប</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+          <div class="stat-content">
+            <h3 id="newStudents">0</h3>
+            <p>និស្សិតថ្មី (សប្តាហ៍នេះ)</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-book"></i></div>
+          <div class="stat-content">
+            <h3 id="majorsCount">0</h3>
+            <p>ជំនាញសរុប</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
+          <div class="stat-content">
+            <h3 id="lastUpdated">-</h3>
+            <p>ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="recent-students">
+        <h3>និស្សិតថ្មីៗ</h3>
+        <div id="recentStudentsList">
+          <!-- Recent students will be loaded here -->
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Modal សម្រាប់កែប្រែ -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>កែប្រែនិស្សិត</h2>
+      <span class="close" onclick="closeModal()">&times;</span>
+    </div>
+    <form id="editStudentForm">
+      <input type="hidden" id="editId" name="id">
+
+      <div class="form-group">
+        <label for="editName">ឈ្មោះ:</label>
+        <input type="text" id="editName" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="editEmail">អ៊ីមែល:</label>
+        <input type="email" id="editEmail" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="editPhoneNumber">លេខទូរសព្ទ:</label>
+        <input type="tel" id="editPhoneNumber" name="phoneNumber">
+      </div>
+
+      <div class="form-group">
+        <label for="editBirthDate">កាលបរិច្ឆេទកំណើត:</label>
+        <input type="date" id="editBirthDate" name="birthDate">
+      </div>
+
+      <div class="form-group">
+        <label for="editMajor">ជំនាញ:</label>
+        <select id="editMajor" name="major" required>
+          <option value="">ជ្រើសរើសជំនាញ</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Software Engineering">Software Engineering</option>
+          <option value="Data Science">Data Science</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="editAddress">អាសយដ្ឋាន:</label>
+        <textarea id="editAddress" name="address" rows="3"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit"><i class="fas fa-save"></i> រក្សាទុក</button>
+        <button type="button" onclick="closeModal()"><i class="fas fa-times"></i> បោះបង់</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="spinner"></div>
+  <p>កំពុងដំណើរការ...</p>
+</div>
+
+<!-- Notification -->
+<div id="notification" class="notification">
+  <span id="notificationMessage"></span>
+  <span class="notification-close" onclick="hideNotification()">&times;</span>
+</div>
+
+<!-- Back to top button -->
+<a href="#" class="back-to-top" onclick="scrollToTop()">&uarr;</a>
+
+<footer>
+  <p>&copy; 2024 ការបង្រៀន Spring Boot ជាភាសាខ្មែរ</p>
+  <p>បង្កើតឡើងដើម្បីជួយការរៀនសូត្រ Spring Boot នៅកម្ពុជា</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
